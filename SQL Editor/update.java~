@@ -1,0 +1,259 @@
+import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+
+class update extends JFrame implements ActionListener
+{
+	String s;
+	//JPanel p1,p2,p3,p4,p5;
+	JButton b1,b2;
+	JTextField t1,t2;
+	JComboBox c1,c2,c3;
+	JLabel l,l1,l2,l3,l4;
+	Connection cn=null;
+	Statement st=null;
+	ResultSet rs=null;
+	static PreparedStatement ps=null;
+	//ResultSetMetaData meta=null;
+	 DefaultTableModel model = new DefaultTableModel();
+
+	int columnCount;
+
+	update()
+	{
+				setLayout(new BorderLayout());
+		//JLabel background = new JLabel(new ImageIcon("/home/hp/java/Project clock.jpg"));
+		setContentPane(new JLabel(new ImageIcon("2.jpg")));
+		setLayout(null);
+		//setLayout(new FlowLayout(FlowLayout.CENTER));
+		l = new JLabel("Update Records");
+		l.setFont(new Font("Serif",Font.BOLD+Font.ITALIC,40));
+		l1 = new JLabel("Tablename : ");
+		l1.setFont(new Font("Serif",Font.ITALIC,18));
+		//t1 = new JTextField(15);
+		
+		//setLayout(new FlowLayout());
+		l2 = new JLabel("Attribute name :");
+		l2.setFont(new Font("Serif",Font.ITALIC,18));
+c1 = new JComboBox();
+
+		c2 = new JComboBox();
+		c3 = new JComboBox();
+			c3.addItem("=");
+			c3.addItem("<");
+			c3.addItem("<=");
+			c3.addItem(">");
+			c3.addItem(">=");
+		
+		l3 = new JLabel("Value:");
+		l3.setFont(new Font("Serif",Font.ITALIC,18));
+		t2 = new JTextField(15);
+		
+		String[][] data =new String[25][2];
+		String[] colHeads = {"Attribute Name","Value"};
+		JTable table = new JTable(model);
+		JScrollPane jsp = new JScrollPane(table);
+		model.addColumn("Attribute Name");
+    model.addColumn("Datatype");
+		b1 = new JButton("Display Query");
+		b2 = new JButton("Back");
+	
+		add(l);
+		add(l1);
+		add(c1);
+		add(l2);
+		add(c2);
+		add(c3);
+		add(l3);
+		add(t2);
+		add(jsp);
+		add(b1);
+		add(b2);
+		
+		l.setBounds(325,50,400,50);
+		l1.setBounds(375,150,130,30);
+		c1.setBounds(510,150,120,30);
+		l2.setBounds(225,220,170,30);
+		c2.setBounds(400,220,100,30);
+		c3.setBounds(505,220,100,30);
+		l3.setBounds(620,220,60,30);
+		t2.setBounds(685,220,100,30);
+		jsp.setBounds(250,290,500,300);
+		b1.setBounds(375,630,150,30);
+		b2.setBounds(530,630,100,30);
+c1.addActionListener(this);
+b1.addActionListener(this);
+		b2.addActionListener(this);
+		setSize(1000,1000);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tablename();
+	}
+
+void tablename()
+	  {
+		try
+	   	{
+			//Class.forName("com.mysql.jdbc.Driver");
+		 	//cn = DriverManager.getConnection("jdbc:mysql://localhost:3307/tybcs","root","root");
+Class.forName("org.postgresql.Driver");
+		//JOptionPane.showMessageDialog(null,"driver register...");
+		cn=DriverManager.getConnection("jdbc:postgresql://linux1/tybsc31","tybsc31","");
+	
+	  		if(cn==null)
+				System.out.println(" no connection");
+			else
+			{
+		
+				st=cn.createStatement();
+				DatabaseMetaData dbmt=cn.getMetaData();
+				rs = dbmt.getTables(null, null, null,new String[] { "TABLE" });
+				while(rs.next())
+				{
+					c1.addItem(rs.getString("TABLE_NAME"));
+				}
+			}
+		}	catch(Exception e)
+		{
+		System.out.println(e);
+		}
+	}//fun	 
+	
+
+
+	
+	public void actionPerformed(ActionEvent ae)
+	{
+
+
+if(ae.getSource()==c1)
+{
+model.setRowCount(0);
+//model.setRowCount(40);
+
+try
+{
+
+c2.removeAllItems();
+String s2=(String)c1.getSelectedItem();
+//System.out.println(s2);
+	  		
+st=cn.createStatement();
+String s="SELECT * FROM "+s2;
+
+ResultSet rs = st.executeQuery(s);
+ResultSetMetaData rsmd = rs.getMetaData();
+columnCount = rsmd.getColumnCount();
+
+
+for (int i = 1; i <= columnCount;i++)
+{
+
+String name = rsmd.getColumnName(i);
+c2.addItem(name);
+
+}
+
+int j=0;
+for (int i = 2; i <= columnCount;i++) 
+{
+  String name = rsmd.getColumnName(i);
+model.insertRow(j++, new Object[]{name});
+  
+} 
+model.insertRow(j++, new Object[]{".....","....."});
+
+}
+catch(Exception e){}
+
+}
+
+		if (ae.getSource() == b2)
+		{
+			Menu m1=new Menu();
+			//System.exit(0);
+		}
+if (ae.getSource() == b1)
+
+		{
+String ins="";
+int n= model.getRowCount();
+
+String s1[]=new String[n+1];
+String s2[]=new String[n+1];
+String s22="";
+int count,j,i;
+System.out.println(n);
+
+try
+{
+s22=(String)c1.getSelectedItem();
+
+st=cn.createStatement();
+String s="SELECT * FROM "+s22;
+ResultSet rs = st.executeQuery(s);
+ResultSetMetaData rsmd = rs.getMetaData();
+columnCount = rsmd.getColumnCount();
+System.out.println(columnCount);
+int k=0;
+for (i = 2; i <= (columnCount);i++) 
+{
+  s = rsmd.getColumnName(i);
+s1[k]=s;
+System.out.println(s1[k]);
+k++;
+         
+}
+
+String sql="",sql1="";
+
+for (j = 0; j < n; j++) 
+{
+s2[j] = (String) model.getValueAt(j,1);
+ System.out.println(s2[j]);         
+}
+//s2[j-1]="0";
+ //System.out.println(s2[j]);         
+
+for (i=0;i<(columnCount-1);i++)
+{
+sql+=s1[i]+"="+"'"+s2[i]+"',";
+}
+//System.out.println(sql);
+StringBuilder sb;
+String r ;
+n=sql.length();	
+sb = new StringBuilder(sql);
+sb.deleteCharAt(n-1);
+r = sb.toString();
+System.out.println(r);
+  s = rsmd.getColumnName(1);
+String op=(String)c3.getSelectedItem();
+ins+="update "+s22+" set "+r+" where "+s+" "+op+" '"+t2.getText()+"';";
+System.out.println(ins);
+st=cn.createStatement();
+j=st.executeUpdate(ins);
+if(j>0)
+{
+System.out.println("Update");	JOptionPane.showMessageDialog(null,"Update Successfully!");
+
+}
+else
+System.out.println("check primary key");
+
+
+}catch(Exception e)
+{System.out.println(e);}
+}
+
+	}
+public static void main(String args[])
+{
+		update u2= new update();
+}
+}

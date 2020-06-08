@@ -1,0 +1,112 @@
+import  java.awt.*;
+import  java.awt.event.*;
+import  javax.swing.*;
+import java.util.*;
+import java.io.*;
+import java.sql.*;
+public class l extends JFrame implements ActionListener
+{
+	JLabel lblun,lblpsw;
+	JTextField txtun;
+	JPasswordField txtpsw;
+	JButton jok,jcancel,jnew,jforget;
+	Font f;
+	
+	l()
+	{
+		setLayout(null);
+		setTitle("sql editor ");
+ 
+		JLabel image=new JLabel();
+                		image.setIcon(new ImageIcon("2.jpg"));
+                		image.setBounds(0,-120,1000,1000);
+		
+		lblun=new JLabel("SQl Editor");
+		/*lblpsw=new JLabel("Password");
+		lblun.setForeground(Color.BLACK);
+		lblpsw.setForeground(Color.BLACK);
+		
+
+		txtun=new JTextField(60);
+		txtpsw=new JPasswordField(60);
+		
+		*/
+		jok=new JButton("GO");
+		/*jcancel=new JButton("Cancel");
+		jnew=new JButton("New user");
+		
+		jforget=new JButton("Forget password");*/
+	
+		jok.setToolTipText("Click here to go");
+		/*jcancel.setToolTipText("Click here to exit");
+		jnew.setToolTipText("click here for new user");
+		
+		jforget.setToolTipText("click here to forget password");
+	
+		*/
+		add(lblun);/*
+		add(lblpsw);
+		add(txtun);
+		add(txtpsw);*/
+		add(jok);/*
+		add(jcancel);
+		add(jnew);
+		
+		add(jforget);*/
+		add(image);	
+		jok.addActionListener(this);
+f=new Font("Arial",Font.BOLD,40);		
+		
+		lblun.setFont(f);
+		/*jcancel.addActionListener(this);
+		jnew.addActionListener(this);
+		
+		jforget.addActionListener(this);
+
+		
+		lblpsw.setFont(f);
+		
+
+		*/
+		lblun.setBounds(350,200,600,50);
+		/*lblpsw.setBounds(300,250,200,30);	
+		
+		txtun.setBounds(450,200,200,30);
+		txtpsw.setBounds(450,250,200,30);
+		*/
+		jok.setBounds(380,320,100,30);
+		/*jcancel.setBounds(520,320,100,30);
+		
+		jnew.setBounds(320,380,120,30);
+		jforget.setBounds(475,380,200,30);
+*/
+		setDefaultCloseOperation(2);
+		setSize(1022,1010);
+		setResizable(false);
+		setLocation(0,0);
+		setVisible(true);
+	}
+
+	
+	public void actionPerformed(ActionEvent e)
+    	{
+    			
+			
+			if(jok==e.getSource())	
+			{
+				Loginpage ii=new Loginpage();
+			}
+			
+			
+	}
+	
+	
+	
+	public static void main(String args[])
+	{
+
+		l p111=new l();
+		
+	}
+}
+

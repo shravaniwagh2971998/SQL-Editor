@@ -1,0 +1,165 @@
+import  java.awt.*;
+import  java.awt.event.*;
+import  javax.swing.*;
+public class Menu extends JFrame implements ActionListener
+{
+	
+	JButton jback,jlogout;
+	JRadioButton 	rbcreate,rbinsert,rbview,rbselect,rbupdate,rbdelete,rbdrop;
+	ButtonGroup bg;
+	Font f;
+	Menu()
+	{
+		setLayout(null);
+		setTitle("Menu form ");
+ 
+		JLabel image=new JLabel();
+                		image.setIcon(new ImageIcon("2.jpg"));
+                		image.setBounds(0,-120,1500,1000);
+		
+		
+		bg=new ButtonGroup();
+		rbcreate=new JRadioButton("Create Table");
+			add(rbcreate);
+			bg.add(rbcreate);
+		
+		rbinsert=new JRadioButton("Insert Values");
+			add(rbinsert);
+			bg.add(rbinsert);
+
+		rbview=new JRadioButton("View Records");
+			add(rbview);
+			bg.add(rbview);
+
+		rbselect=new JRadioButton("Select Records");
+			add(rbselect);
+			bg.add(rbselect);
+
+		rbupdate=new JRadioButton("Update Records");
+			add(rbupdate);
+			bg.add(rbupdate);
+		
+		rbdelete=new JRadioButton("Delete Records");
+			add(rbdelete);
+			bg.add(rbdelete);
+
+		rbdrop=new JRadioButton("Drop Table");
+			add(rbdrop);
+			bg.add(rbdrop);
+
+
+		
+		
+		//jok=new JButton("Ok");
+		jback=new JButton("Back");
+		jlogout=new JButton("Logout");
+		
+		
+		
+		//jok.setToolTipText("Click here to ok");
+		jback.setToolTipText("Click here to go back");
+		jlogout.setToolTipText("Click here to logout");
+		
+		rbcreate.setToolTipText("Click here to create table");
+		rbinsert.setToolTipText("Click here to insert record in table");
+		rbview.setToolTipText("Click here to view table");
+		rbselect.setToolTipText("Click here to select record");
+		rbupdate.setToolTipText("Click here to update record");
+		rbdelete.setToolTipText("Click here to delete record from table");
+		rbdrop.setToolTipText("Click here to delete table");
+
+		
+		//add(jok);
+		add(jback);
+		add(jlogout);
+	
+		add(image);	
+	
+		rbcreate.setBounds(420,200,200,30);
+		rbinsert.setBounds(420,250,200,30);
+		rbview.setBounds(420,300,200,30);
+		rbselect.setBounds(420,350,200,30);
+		rbupdate.setBounds(420,400,200,30);
+		rbdelete.setBounds(420,450,200,30);
+		rbdrop.setBounds(420,500,200,30);
+
+
+		//jok.setBounds(390,600,100,30);
+		jback.setBounds(430,600,100,30);
+		jlogout.setBounds(940,20,100,30);
+		
+		
+		rbcreate.addActionListener(this);
+		rbinsert.addActionListener(this);
+		rbview.addActionListener(this);
+		rbselect.addActionListener(this);
+		rbupdate.addActionListener(this);
+		rbdelete.addActionListener(this);
+		rbdrop.addActionListener(this);
+		//jok.addActionListener(this);
+		jlogout.addActionListener(this);
+		jback.addActionListener(this);
+
+
+
+
+
+		
+
+		setDefaultCloseOperation(2);
+		setSize(1055,1010);
+		setResizable(false);
+		setLocation(0,0);
+		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e)
+    	{
+    			if(rbcreate==e.getSource())
+				{
+					CreateTable c=new CreateTable();
+					
+				}
+				if(rbinsert==e.getSource())
+				{
+					Insert i1=new Insert();
+				}
+				if(rbview==e.getSource())
+				{
+					view v1=new view();
+				}
+				if(rbselect==e.getSource())
+				{
+					select c=new select();
+				}
+				if(rbupdate==e.getSource())
+				{
+					 update c=new update();
+				}
+				if(rbdelete==e.getSource())
+				{
+					delete c=new delete();
+				}
+				if(rbdrop==e.getSource())
+				{
+					drop c=new drop();
+				}
+				
+				if(jback==e.getSource())
+				{
+					Loginpage l=new Loginpage();
+				}
+								if(jlogout==e.getSource())
+				{
+					Loginpage l=new Loginpage();
+				}
+
+
+	}
+	public static void main(String args[])
+	{
+
+		Menu k=new Menu();
+		
+	}
+}

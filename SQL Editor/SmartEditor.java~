@@ -1,0 +1,55 @@
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+class SmartEditor extends JFrame //implements ActionListener
+{
+	String s;
+	//JFrame f;
+	JButton b1;
+	JLabel l1;
+	SmartEditor()
+	{
+		
+		//f=new JFrame();
+		setLayout(new FlowLayout(FlowLayout.CENTER));
+		this.setLayout(null);
+		JLabel l1=new JLabel (" SMART EDITIOR ",JLabel.CENTER);
+		b1 =new JButton("GO");
+		//ImageIcon icon = new ImageIcon("ganesh.jpg");
+		//JLabel label = new JLabel(icon);
+				
+		this.add(l1);
+		this.add(b1); 
+
+		l1.setBounds(350,300,200,50);
+		b1.setBounds(350,320,100,40);
+
+		//JLabel.setIcon(icon);		
+		//b1.setBounds(50,90,100,20);
+		//b1.addActionListener(this);
+
+	        setSize(1500,1500);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	/*
+	 public void actionPerformed(ActionEvent ae)
+	 {
+	
+		JFrame f = new JFrame();		
+		if (ae.getSource() == b1)
+		{
+			new Login("Login Screen");
+		}
+	}*/
+	public static void main(String args[])
+	{
+		SmartEditor k=new SmartEditor();
+	}
+}
+
+

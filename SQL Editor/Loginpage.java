@@ -1,0 +1,178 @@
+import  java.awt.*;
+import  java.awt.event.*;
+import  javax.swing.*;
+import java.util.*;
+import java.io.*;
+import java.sql.*;
+public class Loginpage extends JFrame implements ActionListener
+{
+	JLabel lblun,lblpsw;
+	JTextField txtun;
+	JPasswordField txtpsw;
+	JButton jlogin,jcancel,jnew,jforget;
+	Font f;
+	
+	Loginpage()
+	{
+		setLayout(null);
+		setTitle("Login Form ");
+ 
+		JLabel image=new JLabel();
+                		image.setIcon(new ImageIcon("2.jpg"));
+                		image.setBounds(0,-120,1000,1000);
+		
+		lblun=new JLabel("Username");
+		lblpsw=new JLabel("Password");
+		lblun.setForeground(Color.BLACK);
+		lblpsw.setForeground(Color.BLACK);
+		
+
+		txtun=new JTextField(60);
+		txtpsw=new JPasswordField(60);
+		
+		
+		jlogin=new JButton("Login");
+		jcancel=new JButton("Cancel");
+		jnew=new JButton("New user");
+		
+		jforget=new JButton("Forget password");
+	
+		jlogin.setToolTipText("Click here to Login");
+		jcancel.setToolTipText("Click here to exit");
+		jnew.setToolTipText("click here for new user");
+		
+		jforget.setToolTipText("click here to forget password");
+	
+		
+		add(lblun);
+		add(lblpsw);
+		add(txtun);
+		add(txtpsw);
+		add(jlogin);
+		add(jcancel);
+		add(jnew);
+		
+		add(jforget);
+		add(image);	
+		jlogin.addActionListener(this);
+		jcancel.addActionListener(this);
+		jnew.addActionListener(this);
+		
+		jforget.addActionListener(this);
+
+		f=new Font("Arial",Font.BOLD,18);		
+		
+		lblun.setFont(f);
+		lblpsw.setFont(f);
+		
+
+		
+		lblun.setBounds(300,200,200,30);
+		lblpsw.setBounds(300,250,200,30);	
+		
+		txtun.setBounds(450,200,200,30);
+		txtpsw.setBounds(450,250,200,30);
+		
+		jlogin.setBounds(380,320,100,30);
+		jcancel.setBounds(520,320,100,30);
+		
+		jnew.setBounds(320,380,120,30);
+		jforget.setBounds(475,380,200,30);
+
+		setDefaultCloseOperation(2);
+		setSize(1022,1010);
+		setResizable(false);
+		setLocation(0,0);
+		setVisible(true);
+	}
+
+	
+	public void actionPerformed(ActionEvent e)
+    	{
+    			if(jlogin==e.getSource())
+				{
+					
+					if(txtun.getText().equals(""))
+					{
+					JOptionPane.showMessageDialog(null," Enter userName");
+					}
+					else if(txtpsw.getText().equals(""))
+					{
+					JOptionPane.showMessageDialog(null," Enter Password");
+					}
+					else 
+					{
+						try{
+
+			Connection con;
+		
+
+	String username,psw;		
+
+		Class.forName("org.postgresql.Driver");
+		
+		con=DriverManager.getConnection("jdbc:postgresql://linux1/tybsc31","tybsc31","");
+		
+		JOptionPane.showMessageDialog(null,"connection successfully!");
+		
+			Object src=e.getSource();
+		Statement stmt=con.createStatement();
+	
+		PreparedStatement ps1=con.prepareStatement("select * from newuser where username=? and psw=?");
+
+
+ps1.setString(1,txtun.getText());
+		
+		ps1.setString(2,String.valueOf(txtpsw.getPassword()));
+				
+
+		ResultSet rs=ps1.executeQuery();
+		if(src.equals(jlogin))
+		{
+			if(rs.next())
+			{JOptionPane.showMessageDialog(null,"Login Successfully!!");
+						
+				Menu m=new Menu();
+			}
+			else
+			JOptionPane.showMessageDialog(null,"Login Unsuccessfully!!");
+
+
+		}
+
+	}	
+		catch(Exception ae)
+		{
+			System.out.println(ae);
+		}							
+							
+	}
+	
+						
+			}
+			if(jcancel==e.getSource())	
+			{
+				dispose();
+			}
+			
+			if(jnew==e.getSource())
+			{
+				Newreg n=new Newreg();
+			}
+	
+			if(jforget==e.getSource())
+			{
+				Forgot n=new Forgot();
+			}
+	}
+	
+	
+	
+	public static void main(String args[])
+	{
+
+		Loginpage p1=new Loginpage();
+		
+	}
+}
+
